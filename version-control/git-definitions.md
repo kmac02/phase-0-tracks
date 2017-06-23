@@ -17,3 +17,5 @@ A commit is a save point in the project. It can be viewed with ````git log```` a
 * What is a merge conflict?
 
 A merge conflict comes in two forms: with a competing line change and file deletion. A competing line change is when two branches are to be merged but the same line is changed in both. A user must resolve the merge conflict by making a new commit before the branches can be merged (i.e. select one of the two or make a new one). A merge conflict also occurs when a file is deleted by someone while another person is in the midst of editing it.
+
+GO GIT GO!!
