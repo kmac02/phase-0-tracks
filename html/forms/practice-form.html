@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<h2>Choose your package</h2>
+<form name="Package Order" action="success.html" method="post">
+<fieldset>
+  <div>
+    <label>Name</label>
+    <input type="text" name="name">
+  </div>
+  <div>
+    <label>Address</label>
+    <input type="Address" name="address">
+  </div>
+  <div>
+    <label>Email:</label>
+    <input type="email" name="email">
+  </div>
+</fieldset>
+<fieldset>
+  <div>
+    <label>Package Type</label>
+      <select name="type of package">
+        <option value="Deluxe">Deluxe</option>
+        <option value="Deluxe Standard">Deluxe Standard</option>
+        <option value="Standard Deluxe">Standard Deluxe</option>
+      </select>
+  </div>
+  <div>
+      <label>Special Requests</label>
+      <textarea placeholder="Please list any allergies">Please list any allergies.
+      </textarea>
+  </div>
+  <div>
+    <label>Delivery Date</label>
+    <input type="date" name="date">
+  </div>
+  <div>
+    <label>Delivery time</label>
+    <input type="time" name="time">
+  </div>
+</fieldset>
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>
