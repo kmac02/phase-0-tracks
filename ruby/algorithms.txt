@@ -1,0 +1,14 @@
+- Walk towards the wall of elevators and locate a set of two buttons, one on top of the other.
+  - Until it lights up, press the button on top to go up.
+    - If the button does not light up, press it again until it does.
+   - If there is another wall with two buttons, and the top button is not lit, press the top button.
+- Wait until a light comes on above one of the elevators.
+- When the elevator arrives and the light above the elevator comes on, step towards the elevator.
+- When the doors open, step inside.
+- If there are less than 4 other people in the elevator, maintain a distance of at least six inches from each person.
+- Turn to face the buttons along the side of the door.
+  - Locate the button with the number 14.
+  - Press the the button with the number 14.
+  - If there are people in front of the buttons and you are unable to reach the buttons, ask the person closest to the buttons to press 14.
+- Wait.
+- When the doors open on 14, step outside the elevator.
