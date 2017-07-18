@@ -1,0 +1,44 @@
+- Walk towards the wall of elevators and locate a set of two buttons, one on top of the other.
+  - Until it lights up, press the button on top to go up.
+    - If the button does not light up, press it again until it does.
+   - If there is another wall with two buttons, and the top button is not lit, press the top button.
+- Wait until a light comes on above one of the elevators.
+- When the elevator arrives and the light above the elevator comes on, step towards the elevator.
+- When the doors open, step inside.
+- If there are less than 4 other people in the elevator, maintain a distance of at least six inches from each person.
+- Turn to face the buttons along the side of the door.
+  - Locate the button with the number 14.
+  - If you are able to reach the button, press the the button with the number 14.
+  - If there are people in front of the buttons and you are unable to reach the buttons, ask the person closest to the buttons to press 14.
+- Wait.
+- When the doors open on 14, step outside the elevator.
+
+Release 01: Feeding the cat in the morning
+
+- Locate the blue food bowl on the floor, near the table.
+- Pick up the food bowl and take it into the kitchen.
+  - If cat meows at you at any point, make cooing noises.
+- Take the blue bowl to the sink.
+  - Turn on the water.
+  - Clean out the small crumbs of old food from the day before.
+  - Locate dry dishcloth near stove.
+  - Dry bowl with dishcloth.
+- Place bowl on the counter.
+- Go to the refrigerator.
+  - Locate container of wet cat food.
+  - Remove cat food from refrigerator and place on counter.
+  - Close refrigerator door.
+- At counter, remove lid from cat food container.
+- Locate fork in jar on counter top.
+- Use fork to scoop out 1 tablespoon of wet cat food.
+  - Place tablespoon of food in the cat bowl.
+- Take dirty fork to the sink.
+  - If there is a cup with water in the sink, place the fork in the cup.
+  - Otherwise, turn on faucet and rinse fork. Leave fork in the sink.
+- Return to the counter and replace lid on cat food container.
+  - Take food container to the refrigerator and open the refrigerator.
+  - Place cat food back in the refrigerator.
+  - Close refrigerator.
+- Go back to the counter, pick up bowl and take it back towards the table.
+  - Place bowl on floor.
+- When cat runs over and starts eating, pet the back of her neck at least 2 times but no more than 5 times.
