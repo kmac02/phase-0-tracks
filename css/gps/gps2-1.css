@@ -1,3 +1,42 @@
 body {
-  background: green;
+  margin: 10px;
+  font-family: Courier;
+}
+
+header {
+  border: solid 2px black;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+
+h1, h2 {
+  font-family: sans-serif;
+  text-decoration: underline;
+  color:#ed9844;
+}
+
+.column-1{
+  width: 45%;
+  float: left;
+  margin: 5px;
+  border-right: dotted 2px black;
+  padding: 10px;
+
+}
+
+.column-2{
+  width: 45%;
+  float:left;
+  padding: 10px;
+  margin-left: -10px;
+
+}
+
+p {
+  font-size: small;
+}
+
+footer{
+  clear: both;
 }
