@@ -27,9 +27,9 @@ h1, h2 {
 
 .column-2{
   width: 45%;
-  float:right;
+  float:left;
   padding: 10px;
-  margin-left: -10px
+  margin-left: -10px;
 
 }
 
