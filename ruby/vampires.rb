@@ -1,7 +1,9 @@
+# (LOOP info) Determine how many applications to process
 puts "How many applications to process?"
 apps_to_process = gets.chomp.to_i
 
-until apps_to_process <= 0
+# Begin Loop for each application
+until apps_to_process <= 0 #this can be == as well
   puts "What is your name?"
   name = gets.chomp
   if name == "Drake Cula" || name == "Tu Fang"
@@ -39,15 +41,15 @@ until apps_to_process <= 0
     doesnt_want_insurance = true
   end
 
-
+# DETECTION LOGIC
 if correct_age && (likes_garlic || wants_insurance) && not_vampire_name
   puts "Probably not a vampire"
-elsif incorrect_age && doesnt_like_garlic && doesnt_want_insurance
-  puts "Almost certainly a vampire" # i think this elsif is supposed to go to the bottom
 elsif incorrect_age && doesnt_like_garlic && wants_insurance && not_vampire_name
   puts "Probably a vampire"
 elsif incorrect_age && likes_garlic && doesnt_want_insurance && not_vampire_name
   puts "Probably a vampire"
+elsif incorrect_age && doesnt_like_garlic && doesnt_want_insurance
+  puts "Almost certainly a vampire"
 elsif correct_age && likes_garlic && wants_insurance
   if vampire_name == true
     puts "Definitely a vampire"
@@ -57,21 +59,23 @@ else
   puts "results inconclusive"
 end
 
-  # i suspect there is a cleaner way to do the above. This is the first strategy i tried where i was able to return only one survey response (versus 2 or 3) no matter the input. (i was pretty excited). I think this would be cleaner using a bang operator but the assignment said it wasn't necessary for this challenge. I look forward to feedback!
+# i suspect there is a cleaner way to do the above. This is the first strategy i tried where i was able to return only one survey response (versus 2 or 3) no matter the input. (i was pretty excited). I think this would be cleaner using a bang operator but the assignment said it wasn't necessary for this challenge. I look forward to feedback!
 
+  #Begin loop to determine allergies
   puts "Please name your allergies one at a time. Type 'done' when completed"
   some_allergies = gets.chomp #variable must have input before loop can begin.
     while some_allergies != "done"
-      puts "what other allergies?"
-      some_allergies = gets.chomp
-      if some_allergies == "sunshine"
-        puts "Probably a vampire"
-        break
-      end
+        if some_allergies == "sunshine"
+          puts "Probably a vampire"
+          break
+        else
+          puts "what other allergies?"
+          some_allergies = gets.chomp
+        end
     end
 
 apps_to_process -= 1
-end
+end # end of until apps to process loop
 
 
 
