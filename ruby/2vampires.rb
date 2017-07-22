@@ -15,14 +15,12 @@ until apps_to_process == 0
   puts "What year were you born?"
     birthday_year = gets.chomp
 
-
   if age.to_i == (2017 - birthday_year.to_i)
     correct_age = true
     # if the age is correct, not a vampire
   else
      incorrect_age = true
   end
-
 
   puts "Should the cafeteria order extra garlic bread for you?"
   garlic_bread = gets.chomp
@@ -42,37 +40,23 @@ until apps_to_process == 0
   end
 
 
-
-  case
-  when correct_age && (likes_garlic || wants_insurance)
-    if true && !vampire_name
-      puts "Probably not a vampire"
-    else true && vampire_name
-      puts "Definitely a vampire"
-    end
-  end
-
+  #If the employee got their age right, and is willing to eat garlic bread or sign up for insurance, the result is “Probably not a vampire.”
+  if correct_age && (likes_garlic || wants_insurance) && !vampire_name
+    puts "Probably not a vampire"
   #If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
-  case
-  when incorrect_age && (doesnt_like_garlic || doesnt_want_insurance)
-    if true
-      puts "Probably a vampire"
-    else false
-    end
-  end
-    # !(false and (false or both false))
-
-  # If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
-  case
-  when incorrect_age && doesnt_like_garlic && doesnt_want_insurance
-    # (false and false and false)
-    if true
-      puts "Almost certainly a vampire"
-    end
-  else false
+  elsif incorrect_age && (doesnt_like_garlic || doesnt_want_insurance)
+    puts "Probably a vampire"
+  #If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
+  elsif incorrect_age && doesnt_like_garlic && doesnt_want_insurance
+    puts "Almost certainly a vampire"
+  #Even if the employee is an amazing liar otherwise, anyone going by the name of “Drake Cula” or “Tu Fang” is clearly a vampire, because come on. In that case, you should print “Definitely a vampire.”
+  elsif correct_age && (likes_garlic || wants_insurance) && vampire_name
+    puts "Definitely a vampire"
+  else
     puts "Results inconclusive"
   end
-  # I'm really confused by the two middle conditions, they are almost the same thing, and the more i worked on them, the messier they became. And when i ran the program, i could only return "Almost certainly...' if I also returned 'Probably a vampire'. I'm having trouble avoiding repetition here."
+
+  # I'm really confused by the two middle conditions, they're almost the same thing. (and the more i worked on them, the messier they became.) Also, when i ran the program, i couldn't seem to avoid getting more than one response. Is that right?"
 
   puts "Please name your allergies one at a time. Type 'done' when completed"
   some_allergies = gets.chomp
@@ -87,9 +71,3 @@ until apps_to_process == 0
 
 apps_to_process -= 1
 end
-
-
-
-
-
-
