@@ -10,6 +10,7 @@
       -(loop) apply this process to each letter in the password
   - add 1 to index to prevent infinite loop
 - Define method encrypt and do the same as above except subtract -1 from index_in_alpha to get new index
+-OUTPUT: encrypted word || decrypted word
 =end
 
 # BEGIN METHOD DECLARATIONS
@@ -61,28 +62,29 @@ decrypt(encrypt("swordfish"))
 #Capture response and apply appropriate method
 #Ask user for the password
 #Capture response and use method
+#Create loop until user types "encrypt" or "decrypt"
 #Print results to screen
 
 puts "Do you want to encrypt or decrypt your password?"
 encoding_type = gets.chomp
 
-# LOOP ATTEMPT IN COMMENTS
-#while encoding_type != "encrypt" || encoding_type != "decrypt"
- #   puts "Please enter either encrypt or decrypt."
-  #  encoding_type = gets.chomp
-   if encoding_type == "encrypt"
 
+while encoding_type != "encrypt" || encoding_type != "decrypt"
+   if encoding_type == "encrypt"
       puts "What is your password?"
       password = gets.chomp
       puts encrypt(password)
-      #break
-    else encoding_type == "decrypt"
+      break
+    elsif encoding_type == "decrypt"
       puts "What is your password?"
       password = gets.chomp
       puts decrypt(password)
-      #break
+      break
+    else
+      puts "Please enter either encrypt or decrypt."
+      encoding_type = gets.chomp
     end
-#end
+end
 
 
 
