@@ -75,6 +75,7 @@ end
     end
 
 apps_to_process -= 1
+puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
 end # end of until apps to process loop
 
 
