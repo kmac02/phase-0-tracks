@@ -10,6 +10,7 @@ p "iNvEsTiGaTiOn".swapcase!
 # => “InVeStIgAtIoN”
 
 p "zom".gsub(/([aeiou])/, 'o' =>'oo')
+p "zom".sub(/([aeiou])/, 'o' =>'oo')
 p "zom".insert(2, 'o')
 # => “zoom”
 
@@ -34,7 +35,12 @@ p "The mystery of the missing first letter".delete "T"
 p "Elementary,    my   dear        Watson!".squeeze(" ")
 # => "Elementary, my dear Watson!"
 
-p "z".sub(/./) { |s| s.ord.to_s }
+p "z".ord
+p "z".sub(/./) { |s| s.ord.to_i }
+  # => "122"
+p "z".gsub(/./) { |s| s.ord.to_s }
+  # => "122"
+# "z".each_byte {|c| print c," " } <-- prints 122 but combines with the next line so it returns '1224'
 # p "z".codepoints.to_s
 # => 122
 # (What is the significance of the number 122 in relation to the character z?)
