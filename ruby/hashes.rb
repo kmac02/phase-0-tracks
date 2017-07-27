@@ -1,7 +1,7 @@
 #Declare keys (with empty values) in questionnaire
 questionnaire = {
   name: "",
-  age: "",
+  age: "", #integer
   family_size: "", #integer
   children_under_10: "", #boolean
   decor_theme: "",
@@ -29,11 +29,13 @@ questionnaire[:family_size] = family_size.to_i
 
 puts "Does the client have children under the age of 10?"
 kids_under_ten = gets.chomp
-  if kids_under_ten == "yes" || kids_under_ten == "y"
-    questionnaire[:children_under_10] = true
-  else
-    questionnaire[:children_under_10] = false
-  end
+questionnaire[:children_under_10] = kids_under_ten == "yes" || kids_under_ten == "y"
+
+  #if kids_under_ten == "yes" || kids_under_ten == "y"
+   # questionnaire[:children_under_10] = true
+  #else
+   # questionnaire[:children_under_10] = false
+  #end
 
 puts "What decor theme?"
 decor = gets.chomp
@@ -45,16 +47,17 @@ questionnaire[:number_of_rooms] = room_number.to_i
 
 puts "Does the client need new walls?"
 needs_walls = gets.chomp
-  if needs_walls == "yes" || needs_walls == "y"
-    questionnaire[:need_new_walls] = true
-  else
-    questionnaire[:need_new_walls] = false
-  end
+questionnaire[:need_new_walls] = needs_walls == "yes" || needs_walls == "y"
+
+  #if needs_walls == "yes" || needs_walls == "y"
+   # questionnaire[:need_new_walls] = true
+  #else
+   # questionnaire[:need_new_walls] = false
+  #end
 
 puts "Does the client have pets?"
 pets = gets.chomp
-  if pets == "yes" || pets == "y"
-    questionnaire[:has_pets] = true
+  if questionnaire[:has_pets] = pets == "yes" || pets == "y"
     puts "How many?"
     pet_number = gets.chomp
     questionnaire[:number_of_pets] = pet_number.to_i
@@ -67,16 +70,50 @@ pets = gets.chomp
 # print out the client info
 questionnaire.each { |key, value| puts "Client info: #{key}: #{value}"}
 
+
+=begin
+# Ask user if they want to update client info
 puts "Enter the key to make any updates or enter none if complete."
 update_answer = gets.chomp
-if update_answer == "none"
-# to_sym to make string a symbol
-else
-  key_to_update = update_answer.to_sym
-  puts "Enter new value:"
-  questionnaire[key_to_update] = gets.chomp
-end
+
+  if update_answer == "none"
+  else
+    # to_sym to make string a symbol
+    key_to_update = update_answer.to_sym
+    puts "Enter new value:"
+    questionnaire[key_to_update] = gets.chomp
+  end
+# if a boolean value needs to be updated, how do you keep it a boolean value?
+=end
+p questionnaire
 
 
+
+puts "Enter the key to make any updates or enter none if complete."
+update_answer = gets.chomp
+# Separate booleans, integers, and strings
+
+  if update_answer == "none"
+  #edit integer
+  elsif update_answer == "age" || update_answer == "family_size" || update_answer == "number_of_rooms" || update_answer == "number_of_pets"
+    key_to_update = update_answer.to_sym
+    puts "Enter new value:"
+    questionnaire[key_to_update] = gets.chomp.to_i
+
+  #edit boolean
+  elsif update_answer == "children_under_10" || update_answer == "need_new_walls" || update_answer == "has_pets"
+    key_to_update = update_answer.to_sym
+    puts "Enter new value:"
+    new_value = gets.chomp
+    questionnaire[key_to_update] = new_value.to_sym
+    questionnaire[key_to_update] = new_value == "yes" || pets == "y"
+
+  #edit string
+  else
+    # to_sym to make string a symbol
+    key_to_update = update_answer.to_sym
+    puts "Enter new value:"
+    questionnaire[key_to_update] = gets.chomp
+  end
 
 p questionnaire
