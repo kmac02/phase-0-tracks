@@ -14,6 +14,7 @@ questionnaire = {
 #Ask user to begin filling out questionnaire
 puts "Please begin entering client information."
 
+# Create prompt for each key, apply the new value to the key
 puts "Client's name:"
 name = gets.chomp
 questionnaire[:name] = name
@@ -59,12 +60,22 @@ pets = gets.chomp
     questionnaire[:number_of_pets] = pet_number.to_i
   else
     questionnaire[:has_pets] = false
-    questionnaire[:has_pets] = nil
+    questionnaire[:number_of_pets] = nil
   end
 
 
+# print out the client info
+questionnaire.each { |key, value| puts "Client info: #{key}: #{value}"}
 
-questionnaire.each { |key, value| puts "Client info: #{key}: #{value}."}
+puts "Enter the key to make any updates or enter none if complete."
+update_answer = gets.chomp
+if update_answer == "none"
+# to_sym to make string a symbol
+else
+  key_to_update = update_answer.to_sym
+  puts "Enter new value:"
+  questionnaire[key_to_update] = gets.chomp
+end
 
 
 
