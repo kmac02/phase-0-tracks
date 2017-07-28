@@ -1,11 +1,3 @@
-=begin
-
-design and build a nested data structure to represent a real-world construct. You can choose the construct: Is it a highway full of cars full of people? A classroom full of desks full of supplies? A fashion show with multiple runways featuring multiple models? Build something that will use a mix of hashes and arrays.
-
-Once you've built it, print a few individual pieces of deeply nested data from the structure, showing that you know how to use multiple indexes or hash keys (or both) to access nested items. Try to demonstrate a few different types of access.
-
-=end
-
 av_stuff = {
   equipment: [
     "U-Matic deck", "VHS deck", "monitors", "scopes", "computers"
@@ -25,6 +17,8 @@ av_stuff = {
     }
   }
 }
+
+
 # find the index of an item and replace it
 p av_stuff[:office_supplies]
 p av_stuff[:office_supplies].index("flashlight")
@@ -33,7 +27,7 @@ p av_stuff[:office_supplies][3] = "pen light"
 
 # Determine how many of each format is in each collection, part 1
 av_stuff[:tape_collection_formats].each {|key| puts key}
-puts "*" * 50
+puts "*" * 50 # show where part 1 ends, and part 2 begins
 # Determine how many of each format is in each collection, part 2: Spell it out!
 av_stuff[:tape_collection_formats][:interviews].each_pair {|key, value| puts "In interviews, there are #{value} #{key} tapes."}
 
@@ -44,7 +38,8 @@ av_stuff[:tape_collection_formats][:art_collective].each_pair {|key, value| puts
 # Add item to equipment array
 p av_stuff[:equipment] << "Betacam deck"
 
-#p av_stuff[:tape_collection_formats][:video_art][:Betacam].key(97).equal? Betacam
+# show number of betacam tapes in the video art collection
+p av_stuff[:tape_collection_formats][:video_art][:Betacam]
 
 # list new supplies and add to office supplies array
 p new_supplies = ["hydraulic stool", "colorful highlighters", "soldering iron"]
@@ -57,3 +52,8 @@ av_stuff[:tape_collection_formats][:interviews].merge!(new_interview_tapes)
 p av_stuff[:tape_collection_formats][:interviews]
 
 
+# some of the tapes are a bust! get rid of them! (half of the u-matics in each collection). then prove it.
+av_stuff[:tape_collection_formats][:video_art][:UMatic] = 15
+av_stuff[:tape_collection_formats][:art_collective][:UMatic] = 6
+p av_stuff[:tape_collection_formats][:video_art].fetch(:UMatic)
+p av_stuff[:tape_collection_formats][:art_collective].fetch(:UMatic)
