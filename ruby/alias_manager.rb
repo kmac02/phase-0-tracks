@@ -9,16 +9,16 @@ while name_submission != "quit"
 
   if name_submission
 
-    p full_name = name_submission.split(' ')
+    full_name = name_submission.split(' ')
 
-    p full_name.class
-    full_name.map {|x| puts x }
+    full_name.class
+    #full_name.map {|x| puts x }
     # Swap first and last name
     swap_name = ""
-    p full_name.reverse_each { |name| swap_name += "#{name} " }
-    p swap_name
+    full_name.reverse_each { |name| swap_name += "#{name} " }
+    swap_name
     #swap_name = "Loy Myrna"
-    puts "*" * 50
+
 
     #convert string to new array
     array_name = swap_name.split('')
@@ -30,7 +30,7 @@ while name_submission != "quit"
       if letter == " "
         letter = " "
 
-=begin  ### Attempt at addressing consonants
+=begin  ### Attempt at cycling through consonants
       #replace consonant with the next consonant;
       elsif letter =~ /[bcdfghjklmnpqrstvwxyz]/
         consonants = "bcdfghjklmnpqrstvwxyz"
@@ -54,8 +54,6 @@ while name_submission != "quit"
         letter = "b"
       # begin vowel 'elsif's.
       # is there a better way using /[aeiou]/?
-      # if first letter is capital vowel, need it to go to next
-      # capital vowel. 5 more elsifs with capital vowels?
       elsif letter == "a"
         letter = "e"
       elsif letter == "e"
@@ -66,30 +64,39 @@ while name_submission != "quit"
         letter = "u"
       elsif letter == "u"
         letter = "a"
+      elsif letter == "A"
+        letter = "E"
+      elsif letter == "E"
+        letter = "I"
+      elsif letter == "I"
+        letter = "O"
+      elsif letter == "O"
+        letter = "U"
+      elsif letter == "U"
+        letter = "A"
       else
         new_letter = letter.next
       end
     end
-    puts "After map:"
-    p array_name
-    puts "joins array into string:"
-    p almost_spy_name = array_name.join('')
-    puts "rstrip removes whitespace on end"
-    p new_spy_name = almost_spy_name.rstrip
+    # "After map:"
+    array_name
+    # "joins array into string:"
+    almost_spy_name = array_name.join('')
+    # "rstrip removes whitespace on end"
+    new_spy_name = almost_spy_name.rstrip
     p new_spy_name
-
-# Add section to store spy name in data structure
-# add new hash
 
     puts "Enter another name or type quit"
     name_submission = gets.chomp
   end
-  p old_name = full_name * ' '
+  # return original full name to a string, make a new string
+  old_name = full_name * ' '
+  # store each identity in identities hash
   identities.store(old_name, new_spy_name)
 end
 
-identities.each { |key, value| puts "#{key} is also known as #{value}"}
 # print spy names and real names
-# p some has they are stored in
-# {|key, value| puts "#{key} is also known as #{value}"}
+identities.each { |key, value| puts "#{key} is also known as #{value}"}
+
+
 
