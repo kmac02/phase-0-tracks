@@ -7,6 +7,8 @@ Changing all of the vowels (a, e, i, o, or u) to the next vowel in 'aeiou', and 
 
 #Swap first and last name
 # Create name variable. Turn into array
+
+
 p full_name = "Myrna Loy".split(' ')
 
 p full_name.class
@@ -16,5 +18,25 @@ swap_name = ""
 p full_name.reverse_each { |name| swap_name += "#{name} " }
 p swap_name
 #swap_name = "Loy Myrna"
+puts "*" * 50
 
+#letters = swap_name.split('')
+#letters.map! { |letter| letter.next }
+#letters
+#new_name = letters.join('')
+#p new_name
+
+#convert string to array
+array_name = swap_name.split('')
+vowels = "aeiou"
+
+array_name.map! do |letter|
+  new_letter = letter.next
+  if new_letter == "!"
+    new_letter = " "
+
+  end
+end
+puts "After map:"
+p array_name
 
