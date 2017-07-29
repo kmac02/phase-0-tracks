@@ -1,3 +1,6 @@
+#create data structure to store fake names
+identities = { }
+
 # Create name variable with user input.
 puts "Enter name."
 name_submission = gets.chomp
@@ -20,23 +23,35 @@ while name_submission != "quit"
     #convert string to new array
     array_name = swap_name.split('')
 
-    vowels = "aeiou"
-    consonants = "bcdfghjklmnpqrstvwxyz"
-    consonants_index = ""
-    index = 0
-
     # Begin iteration with the array_name
     array_name.map! do |letter|
 
       # how to keep a space as a space
       if letter == " "
         letter = " "
-      #replace consonant with the next consonant;
-      # 2017/07/28, 11:30pm: this  still doesn't do anything.
-      elsif letter.match(consonants) # /[bcdfghjklmnpqrstvwxyz]/
-        consonants_index = letter.index
-        letter = consonants_index
 
+=begin  ### Attempt at addressing consonants
+      #replace consonant with the next consonant;
+      elsif letter =~ /[bcdfghjklmnpqrstvwxyz]/
+        consonants = "bcdfghjklmnpqrstvwxyz"
+        consonant_index = ""
+        index = 0
+        new_letter = ""
+          # access index of consonants
+          while index < letter.length
+            consonant_index = consonants.index(letter[index])
+              if consonant_index == 21
+                p new_index = 0
+              else
+                p new_index = consonant_index += 1
+              end
+            p new_letter += consonants[new_index] #new_letter = new_letter + alphabet[new_index]
+            p index += 1
+          end
+        new_letter #return
+=end
+      elsif letter == "z"
+        letter = "b"
       # begin vowel 'elsif's.
       # is there a better way using /[aeiou]/?
       # if first letter is capital vowel, need it to go to next
@@ -58,11 +73,23 @@ while name_submission != "quit"
     puts "After map:"
     p array_name
     puts "joins array into string:"
-    p new_spy_name = array_name.join('')
+    p almost_spy_name = array_name.join('')
     puts "rstrip removes whitespace on end"
-    p new_spy_name.rstrip
+    p new_spy_name = almost_spy_name.rstrip
+    p new_spy_name
+
+# Add section to store spy name in data structure
+# add new hash
+
     puts "Enter another name or type quit"
     name_submission = gets.chomp
   end
+  p old_name = full_name * ' '
+  identities.store(old_name, new_spy_name)
 end
+
+identities.each { |key, value| puts "#{key} is also known as #{value}"}
+# print spy names and real names
+# p some has they are stored in
+# {|key, value| puts "#{key} is also known as #{value}"}
 
