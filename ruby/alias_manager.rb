@@ -29,14 +29,39 @@ puts "*" * 50
 #convert string to array
 array_name = swap_name.split('')
 vowels = "aeiou"
-
+consonants = "bcdfghjklmnpqrstvwxyz"
+consonants_index = ""
+index = 0
 array_name.map! do |letter|
-  new_letter = letter.next
-  if new_letter == "!"
-    new_letter = " "
 
+# how to keep a space a space
+  if letter == " "
+    letter = " "
+#replace consonant with the next consonant; this still doesn't do anything.
+  elsif letter.match(consonants) # /[bcdfghjklmnpqrstvwxyz]/
+    consonants_index = letter.index
+    letter = consonants_index
+
+# begin vowel 'elsif's.
+# is there a better way using /[aeiou]/?
+  elsif letter == "a"
+    letter = "e"
+  elsif letter == "e"
+    letter = "i"
+  elsif letter == "i"
+    letter = "o"
+  elsif letter == "o"
+    letter = "u"
+  elsif letter == "u"
+    letter = "a"
+  else
+    new_letter = letter.next
   end
 end
 puts "After map:"
 p array_name
+puts "joins array into string:"
+p new_spy_name = array_name.join('')
+puts "rstrip removes whitespace on end"
+p new_spy_name.rstrip
 
