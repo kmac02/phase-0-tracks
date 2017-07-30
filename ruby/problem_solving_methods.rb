@@ -63,7 +63,7 @@ def bubble_sort(array)
   until sorted
     sorted = true
 
-# take array and for array.length -1 times, begin method to sort
+# take array and for array.length, begin method to sort
     for index in 0..(length -2)
 # perform swap if the index of the array is greater than the array index + 1
       if array[index] > array[index + 1]
