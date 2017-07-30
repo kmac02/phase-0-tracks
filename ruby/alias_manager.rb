@@ -21,19 +21,23 @@ while name_submission != "quit"
 
 
     #convert string to new array
-    array_name = swap_name.split('')
+    p array_name = swap_name.split('')
 
     # Begin iteration with the array_name
     array_name.map! do |letter|
 
+
+
       # how to keep a space as a space
-      if letter == " "
+     if letter == " "
         letter = " "
 
-=begin  ### Attempt at cycling through consonants
+=begin
+  ### Attempt at cycling through consonants
+  ### this doesn't work, but also doesn't produce an error
       #replace consonant with the next consonant;
-      elsif letter =~ /[bcdfghjklmnpqrstvwxyz]/
-        consonants = "bcdfghjklmnpqrstvwxyz"
+      elsif letter == ("bcdfghjklmnpqrstvwxyz").split('')
+        consonants = ("bcdfghjklmnpqrstvwxyz").split('')
         consonant_index = ""
         index = 0
         new_letter = ""
@@ -45,13 +49,18 @@ while name_submission != "quit"
               else
                 p new_index = consonant_index += 1
               end
-            p new_letter += consonants[new_index] #new_letter = new_letter + alphabet[new_index]
-            p index += 1
+            p letter += consonants[new_index]
+            index += 1
           end
-        new_letter #return
+        letter #return
 =end
+
       elsif letter == "z"
         letter = "b"
+      elsif letter == "Z"
+        letter = "B"
+
+
       # begin vowel 'elsif's.
       # is there a better way using /[aeiou]/?
       elsif letter == "a"
@@ -74,6 +83,7 @@ while name_submission != "quit"
         letter = "U"
       elsif letter == "U"
         letter = "A"
+
       else
         new_letter = letter.next
       end
@@ -89,6 +99,8 @@ while name_submission != "quit"
     puts "Enter another name or type quit"
     name_submission = gets.chomp
   end
+
+
   # return original full name to a string, make a new string
   old_name = full_name * ' '
   # store each identity in identities hash
