@@ -21,7 +21,7 @@ while name_submission != "quit"
 
 
     #convert string to new array
-    p array_name = swap_name.split('')
+    array_name = swap_name.split('')
 
     # Begin iteration with the array_name
     array_name.map! do |letter|
