@@ -7,12 +7,14 @@
   # print the list to the console [can you use one of your other methods here?]
 # output: [what data type goes here, array or hash?]
 
+
 def create_list (items)
-  grocery_list.Hash.new
+  @grocery_list = { }
   items = items.split(" ")
   items.each do |x|
-    grocery_list[x] = 0
+    @grocery_list[x] = 0
   end
+  print_list(@grocery_list)
 end
 
 # Method to add an item to a list
@@ -24,7 +26,7 @@ end
 
 def add_item (items)
   items.each do |x, quantity|
-    grocery_list[x] = quantity
+    @grocery_list[x] = quantity
   end
 end
 
@@ -36,10 +38,8 @@ end
 # ex hashname.delete("key")
 # output: value deleted
 
-def remove_item (items)
-  items.each do |item|
-    grocery_list.delete(item)
-  end
+def remove_item (item)
+    @grocery_list.delete(item)
 end
 
 
@@ -49,10 +49,8 @@ end
 # ex: hashname[:key] = new_value
 # output: shows update
 
-def update_item (items)
-  items.each do |item, quantity|
-    grocery_list[item] = quantity
-  end
+def update_item (item, quantity)
+    @grocery_list[item] = quantity
 end
 
 # Method to print a list and make it look pretty
@@ -61,7 +59,21 @@ end
 # output: hash
 
 def print_list (hash)
-  x.each do |item, quantity|
-    puts "#{item}: #{quantity}."
+  hash.each do |item, quantity|
+    puts "#{item}: #{quantity}"
   end
 end
+
+# DRIVER code
+create_list("lemonade tomatoes onions ice_cream")
+update_item("lemonade", 2)
+update_item("tomatoes", 3)
+update_item("onions", 1)
+update_item("ice_cream", 4)
+
+remove_item("lemonade")
+update_item("ice_cream", 1)
+
+print_list(@grocery_list)
+
+p @grocery_list
