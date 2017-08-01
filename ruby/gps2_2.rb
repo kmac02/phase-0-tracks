@@ -21,8 +21,8 @@ end
 # ex: hashname[:key] = quantity
 # output: new key and value added
 
-def add_item (items)
-  items.each { |x, quantity| @grocery_list[x] = quantity }
+def add_item (item, quantity)
+  @grocery_list[item] = quantity
 end
 
 # Method to remove an item from the list
@@ -66,7 +66,31 @@ update_item("ice_cream", 4)
 
 remove_item("lemonade")
 update_item("ice_cream", 1)
+add_item("cheese", 8)
 
 print_list(@grocery_list)
 
-p @grocery_list
+
+
+
+=begin
+What did you learn about pseudocode from working on this challenge?
+- The most helpful thing is to identify the input and the output first. It's basically a way to figure out how to get from point a to point b.
+
+What are the trade offs of using arrays and hashes for this challenge?
+- An array as the end product wouldn't work for this challenge but it worked really well for the brief instance it was used to turn a single string of words into individual hash keys.
+
+What does a method return?
+-A method returns a single object.
+
+What kind of things can you pass into methods as arguments?
+- An instance variable for a hash can be passed as an argument.
+
+How can you pass information between methods?
+- In this challenge, the instance variable for the hash was passed between methods.
+
+What concepts were solidified in this challenge, and what concepts are still confusing?
+- Solidified: instance variables, developing basic methods to complete a task
+- I understood refactoring as it was used here, but I wonder if it will become more challenging as the course goes forward.
+
+=end
