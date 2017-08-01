@@ -10,10 +10,7 @@
 
 def create_list (items)
   @grocery_list = { }
-  items = items.split(" ")
-  items.each do |x|
-    @grocery_list[x] = 0
-  end
+  items.split(" ").collect { |x| @grocery_list[x] = 0 }
   print_list(@grocery_list)
 end
 
@@ -25,9 +22,7 @@ end
 # output: new key and value added
 
 def add_item (items)
-  items.each do |x, quantity|
-    @grocery_list[x] = quantity
-  end
+  items.each { |x, quantity| @grocery_list[x] = quantity }
 end
 
 # Method to remove an item from the list
@@ -59,9 +54,7 @@ end
 # output: hash
 
 def print_list (hash)
-  hash.each do |item, quantity|
-    puts "#{item}: #{quantity}"
-  end
+  hash.each { |item, quantity| puts "#{item}: #{quantity}"}
 end
 
 # DRIVER code
