@@ -1,12 +1,14 @@
 # santa class
 class Santa
+  attr_accessor :gender
+  attr_reader :age, :ethnicity
 
-  def initialize (gender, ethnicity)
+  def initialize (gender, ethnicity, age)
     puts "Initializing Santa instance..."
     @gender = gender
     @ethnicity = ethnicity
     @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-    @age = 0
+    @age = age
   end
 
   def speak
@@ -25,27 +27,36 @@ class Santa
     @reindeer_ranking[-1] = reindeer
   end
 
-  def gender_set=(gender_ident)
-    @gender = gender_ident
-  end
 end
 
 #Driver Code
-santa = Santa.new("gender fluid", "latinx")
+santa = Santa.new("gender fluid", "latinx", 3)
 santa.eat_milk_and_cookies("chocolate chip")
 santa.speak
 reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
 
-santas = []
-santas << Santa.new("agender", "black")
-santas << Santa.new("female", "Latino")
-santas << Santa.new("bigender", "white")
-santas << Santa.new("male", "Japanese")
-santas << Santa.new("female", "prefer not to say")
-santas << Santa.new("gender fluid", "Mystical Creature (unicorn)")
-santas << Santa.new("N/A", "N/A")
 
 #Test setter methods
-p santa.get_mad_at("Comet")
-p santa.gender_set = "male"
-p santa.celebrate_birthday(35)
+#santa.get_mad_at("Comet")
+# santa.gender = "male"
+# santa.celebrate_birthday(35)
+
+# create santas with randomly generated genders and ethnicities
+## create arrays
+santas = []
+example_genders = ["pangender", "genderless", "hijra", "agender", "female", "bigender", "male", "female", "gender fluid",  "N/A"]
+example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "latinx", "Indian-American", "Mystical Creature (unicorn)", "N/A"]
+#create age range in array
+age = *(0..140).to_a
+
+# generate santas
+10.times do |i|
+  santas << Santa.new(example_genders.sample, example_ethnicities.sample, age.sample)
+
+end
+
+# test new santas array
+santas[3].celebrate_birthday(45)
+p santas[3]
+
+
