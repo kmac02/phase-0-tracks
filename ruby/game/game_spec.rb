@@ -11,6 +11,8 @@ describe WordGame do
     expect(game_play.encrypt_word).to eq "new_word".split(" ")
   end
 
+
+
   #it "encrypts the word to underscores" do
    #expect(game_play.encrypt_word).to eq "new_word".gsub(/./) {|letter| letter = '_'}
   #end

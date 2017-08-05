@@ -24,8 +24,6 @@ class WordGame
     @secret_word
   end
 
-
-
   # method to change letters into array and into underscores
   def encrypt_word
     @secret_word = @secret_word.split(" ")
@@ -33,9 +31,9 @@ class WordGame
   end
 
   # create method to guess a letter
-  def guess_letter(letter)
-    @guess_count -= 1
-  end
+  #def guess_letter(letter)
+   # @guess_count -= 1
+  #end
 
 
 end
