@@ -28,12 +28,12 @@ class WordGame
 
   # method to change letters into array and into underscores
   def array_word
-     @arrayed_word = @secret_word.split("")
+     p @arrayed_word = @secret_word.split("")
 
   end
 
 =begin
-Even though encrypt_word returns correctly, the rspec test keeps failing with:
+NOTE: Even though encrypt_word returns correctly, the rspec test keeps failing with:
       Failure/Error: expect(game_play.encrypt_word).to eq "new_word".split("").each {|char| char = "_"}
 
            NoMethodError:
@@ -43,7 +43,7 @@ Even though encrypt_word returns correctly, the rspec test keeps failing with:
 I've tried #collect and #map on the array as well, but no dice.
 =end
   def encrypt_word
-    @encrypted_word = @arrayed_word.collect! {|char| char = "_"}
+    p @encrypted_word = @arrayed_word.collect! {|char| char = "_"}
   end
 
 
@@ -52,10 +52,10 @@ I've tried #collect and #map on the array as well, but no dice.
     @guess_count -= 1
 
     #if letter is equal to a character in the arrayed word
-    if @arrayed_word.include?(letter) #true
+    if @arrayed_word.include?("letter") #true
 
       # match the letter in the array to the index of the encrypted
-      p new_index = @arrayed_word.index(letter)
+      p new_index = @arrayed_word.index("letter")
       p @encrypted_word[new_index].replace("letter")
 
       # replace one of the underscores with the correctly guessed letter
@@ -73,10 +73,13 @@ end
 
 #puts "Enter a word"
 
-# new_word = gets.chomp
+#new_word = gets.chomp
 #kill_me = WordGame.new(new_word)
 
-#until guess_count == secret_word.length
+#until @guess_count == new_word.length
+ # puts "Guess a letter"
+  #letter_guess = gets.chomp
+  #kill_me.guess_letter("letter_guess")
 
 #end
 

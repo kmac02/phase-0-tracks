@@ -17,16 +17,18 @@ describe WordGame do
   end
 
   it "compares letter guess to secret word" do
-    expect(game_play.guess_letter(n)).to match [0]
+    expect(game_play.guess_letter).to match "new_word".index[0]
   end
 
 
-  #it "encrypts the word to underscores" do
+
+
+end
+
+#it "encrypts the word to underscores" do
    #expect(game_play.encrypt_word).to eq "new_word".gsub(/./) {|letter| letter = '_'}
   #end
 
   #it "guesses a letter" do
    # expect(game_play.guess_letter).to eq "new_word".length
   #end
-
-end
