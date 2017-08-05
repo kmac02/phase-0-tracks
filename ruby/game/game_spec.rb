@@ -8,9 +8,17 @@ describe WordGame do
   end
 
   it "turns secret word into array of letters" do
-    expect(game_play.encrypt_word).to eq "new_word".split(" ")
+    expect(game_play.array_word).to eq "new_word".split("")
   end
 
+
+  it "encrypts word into underscores" do
+    expect(game_play.encrypt_word).to eq "new_word".split("").each {|char| char = "_"}
+  end
+
+  it "compares letter guess to secret word" do
+    expect(game_play.guess_letter(n)).to match [0]
+  end
 
 
   #it "encrypts the word to underscores" do

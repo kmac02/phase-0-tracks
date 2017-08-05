@@ -12,11 +12,13 @@ Assume your driver code will handle input and output as far as the user is conce
 # initialize the secret word
 
 class WordGame
-  #attr_accessor :secret_word
+  attr_accessor
+  attr_reader :guess_count
   # create method to insert a word on initialization
   def initialize(secret_word)
     @secret_word = secret_word
     @guess_count = secret_word.length
+
   end
 
   # getter
@@ -25,20 +27,66 @@ class WordGame
   end
 
   # method to change letters into array and into underscores
-  def encrypt_word
-    @secret_word = @secret_word.split(" ")
+  def array_word
+     @arrayed_word = @secret_word.split("")
 
   end
 
+=begin
+Even though encrypt_word returns correctly, the rspec test keeps failing with:
+      Failure/Error: expect(game_play.encrypt_word).to eq "new_word".split("").each {|char| char = "_"}
+
+           NoMethodError:
+             undefined method `each' for nil:NilClass
+           # ./new_game.rb:35:in `encrypt_word'
+           # ./game_spec.rb:15:in `block (2 levels) in <top (required)>
+I've tried #collect and #map on the array as well, but no dice.
+=end
+  def encrypt_word
+    @encrypted_word = @arrayed_word.collect! {|char| char = "_"}
+  end
+
+
   # create method to guess a letter
-  #def guess_letter(letter)
-   # @guess_count -= 1
-  #end
+  def guess_letter(letter)
+    @guess_count -= 1
+
+    #if letter is equal to a character in the arrayed word
+    if @arrayed_word.include?(letter) #true
+
+      # match the letter in the array to the index of the encrypted
+      p new_index = @arrayed_word.index(letter)
+      p @encrypted_word[new_index].replace("letter")
+
+      # replace one of the underscores with the correctly guessed letter
+
+    else
+      false
+    end
+
+    p @encrypted_word
+  end
+
 
 
 end
 
+#puts "Enter a word"
+
+# new_word = gets.chomp
+#kill_me = WordGame.new(new_word)
+
 #until guess_count == secret_word.length
+
+#end
+
+
+#p kill_me.array_word
+#p kill_me.encrypt_word
+#p kill_me.guess_letter("r")
+
+
+
 
 
 
@@ -53,7 +101,3 @@ end
 #output: true or false
 
 
-## TRASH CAN
-
-#to substitute all characters in a string into underscores
-#     = @secret_word.gsub(/./) {|letter| letter = '_'}
