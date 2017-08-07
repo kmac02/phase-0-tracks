@@ -54,11 +54,18 @@ class WordGame
     if @secret_word.include?(letter) #true
 
       # match the letter in the array to the index of the encrypted
-      # replace one of the underscores with the correctly guessed letter
+
       p new_index = @secret_word.index(letter) #returns correct index
+
+      # attempt 1: replace one of the underscores with the correctly guessed letter
       @encrypted_word[new_index].replace(letter)
       ####why is encrypted_word nil? tried to initialize encrypted_word and arrayed_word as arrays
       # but this still makes a no method error for nil class (since nil doesn't have an index).
+
+      #attempt 2:
+      @encrypted_word = encrypt_word[new_index].replace(letter)
+      @encrypted_word[new_index] = letter
+      # both of these in attempt 2 replace the entire array with the letter.
 
       # return encrypted word with guessed letter replacing the underscore
       # need to loop through so each guess will be stored.
