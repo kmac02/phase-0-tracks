@@ -18,12 +18,13 @@ class WordGame
   def initialize(secret_word)
     @secret_word = secret_word
     @guess_count = secret_word.length
+    @encrypted_word = ""
 
   end
 
   # getter
   def add_word
-    @secret_word
+    p @secret_word
   end
 
   # method to change letters into array and into underscores
@@ -41,11 +42,16 @@ NOTE: Even though encrypt_word returns correctly, the rspec test keeps failing w
            # ./new_game.rb:35:in `encrypt_word'
            # ./game_spec.rb:15:in `block (2 levels) in <top (required)>
 I've tried #collect and #map on the array as well, but no dice.
+From what I can tell, this method is returning nil no matter what is in the method (unless it's
+'return "green"'). But I seem to be calling an array method on a nil class and I can't tell why
 =end
   def encrypt_word
-    p @encrypted_word = @arrayed_word.collect! {|char| char = "_"}
+
+    @encrypted_word = "_".split("") * @secret_word.length
+
   end
 
+=begin
 
   # create method to guess a letter
   def guess_letter(letter)
@@ -67,9 +73,11 @@ I've tried #collect and #map on the array as well, but no dice.
     p @encrypted_word
   end
 
-
+=end
 
 end
+
+#.each_index {|char| char = "_"}
 
 #puts "Enter a word"
 
