@@ -1,6 +1,6 @@
 # Virus Predictor
-# I worked on this challenge [by myself, with: ].
-# We spent [#] hours on this challenge.
+# I worked on this challenge [by myself, with: Zach Broaddus].
+# We spent [2] hours on this challenge.
 
 # EXPLANATION OF require_relative
 # The bridge between two documents;
@@ -74,4 +74,22 @@ STATE_DATA.each do |state, value|
   state.virus_effects
 end
 #=======================================================================
+=begin
+
 # Reflection Section
+What are the differences between the two different hash syntaxes shown in the state_data file?
+- The outer hash uses strings for keys, while the hashes as values use symbols.
+
+What does require_relative do? How is it different from require?
+- Require is used to bring in data from outside the directory, while require_relative links to a file in the same directory.
+
+What are some ways to iterate through a hash?
+- Mostly using #each, but also narrow down what is accessible during the iteration using #each_key or #each_value.
+
+When refactoring virus_effects, what stood out to you about the variables, if anything?
+-The variable were instance variables, and therefore the information they collected was accessible throughout the class. They could be deleted.
+
+What concept did you most solidify in this challenge?
+- Among many things, refactoring, removing unnecessary data to make code simplified and  more readable.
+
+=end
