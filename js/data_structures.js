@@ -25,8 +25,33 @@ function Car(make, model, year, color) {
 
 }
 
+Car.prototype.isawesome = true
+
 var newCar = new Car("Hyundai", "Accent", 1976, "purple");
 console.log(newCar)
 
 newCar.vroom();
 newCar.salesPitch();
+
+for (var carSpecs in newCar) {
+  if (typeof newCar[carSpecs] === "function") {
+    console.log("This is a function.")
+  }
+  else if (typeof newCar[carSpecs] === "number") {
+    console.log("This is a number.")
+    }
+  else if (typeof newCar[carSpecs] === "boolean") {
+    console.log("It's a boolean.")
+  }
+  else {
+  newCar[carSpecs] = "superawesome" +newCar[carSpecs];
+  }
+}
+
+
+
+console.log(newCar);
+newCar.vroom();
+newCar.salesPitch();
+
+console.log(newCar.isawesome);
