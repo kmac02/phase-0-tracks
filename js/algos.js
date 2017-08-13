@@ -79,25 +79,28 @@ function comparePairs(kvPair1, kvPair2) {
 // Write a function that takes an integer for length, and builds and returns an array of strings of the given length. So if we ran your function with an argument of 3, we would get an array of 3 random words back (the words don't have to be actual sensical English words -- "nnnnfph" totally counts). The words should be of randomly varying length, with a minimum of 1 letter and a maximum of 10 letters. (This involves a new trick, generating a random number, that you'll have to look up, but the solution on how to do so is relatively straightforward.)
 // Add driver code that does the following 10 times: generates an array, prints the array, feeds the array to your "longest word" function, and prints the result.
 
-function makeArray(integer) {
+function makeWordArray(integer) {
   // create empty array
   randomWords = []
   alphabetArray = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+  // for each item in the array
   for (var i = 0; i < integer; i++) {
-    var randomNumber = Math.floor(Math.random() * 100) + 1; // turn #'s into letters?
-    var numberArray = randomNumber.toString.split("");
-    for (var a = 0; a < randomNumber; a++) {
+    // get a random number from 1 ... uhm 1 million? turn into a string and match each number in the string to a letter
+    var randomNumberString = Math.floor(Math.random() * 1000000000 ).toString
+
+    var randomNumber = (Math.floor(Math.random() * 26));
+
+    for (var a = 0; a < randomNumberString.length; a++) {
       newWord = ""
       //match index of random numbers to index of letters in alphabet array
-      numberArray[a] = alphabetArray[a]
-
-
+      newWord += (alphabetArray[randomNumber]
     }
     //feed into the randomWords array
-    randomWords.push(//thenewword)
+    randomWords.push(newWord)
   } // end of loop
   return randomWords
 } // end makeArray function
+// Returns only a single random letter. i think i'm over-thinking this.
 
 
 
@@ -116,4 +119,4 @@ console.log(findLongWord(titles));
 
 console.log(comparePairs({name: "Steven", age: 54}, {name: "Tamir", age: 54}));
 
-console.log(makeArray(3));
+console.log(makeWordArray(4));
