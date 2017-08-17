@@ -1,0 +1,114 @@
+1. Display the information in one table (either table is fine).
+- SELECT * FROM books
+- Output:
+1|A Thousand Words for Stranger|1|1997|true
+2|The Birthgrave|3|1975|true
+3|Emperor of the Eight Islands|2|2016|false
+4|Ties of Power|1|1999|false
+5|Elantris|5|2005|true
+6|To Say Nothing of the Dog|4|1998|true
+7|Oathbringer|5|2017|false
+
+2. Update an item that meets some condition (you can choose a condition that makes sense).
+- UPDATE books SET finished_reading = "true" WHERE title = "Ties of Power";
+- Output:
+1|A Thousand Words for Stranger|1|1997|true
+2|The Birthgrave|3|1975|true
+3|Emperor of the Eight Islands|2|2016|false
+4|Ties of Power|1|1999|true
+5|Elantris|5|2005|true
+6|To Say Nothing of the Dog|4|1998|true
+7|Oathbringer|5|2017|false
+
+- UPDATE books SET title = "Emperor of the Eight Islands: The Tale of Shikanoko" WHERE id = 3;
+- Output:
+1|A Thousand Words for Stranger|1|1997|true
+2|The Birthgrave|3|1975|true
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false
+4|Ties of Power|1|1999|true
+5|Elantris|5|2005|true
+6|To Say Nothing of the Dog|4|1998|true
+7|Oathbringer|5|2017|false
+
+
+3. Display the information in both tables using one query.
+- SELECT * FROM books, authors;
+- Output:
+1|A Thousand Words for Stranger|1|1997|true|1|Julie E. Czerneda
+1|A Thousand Words for Stranger|1|1997|true|2|Lian Hearn
+1|A Thousand Words for Stranger|1|1997|true|3|Tanith Lee
+1|A Thousand Words for Stranger|1|1997|true|4|Connie Willis
+1|A Thousand Words for Stranger|1|1997|true|5|Brandon Sanderson
+2|The Birthgrave|3|1975|true|1|Julie E. Czerneda
+2|The Birthgrave|3|1975|true|2|Lian Hearn
+2|The Birthgrave|3|1975|true|3|Tanith Lee
+2|The Birthgrave|3|1975|true|4|Connie Willis
+2|The Birthgrave|3|1975|true|5|Brandon Sanderson
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false|1|Julie E. Czerneda
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false|2|Lian Hearn
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false|3|Tanith Lee
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false|4|Connie Willis
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false|5|Brandon Sanderson
+4|Ties of Power|1|1999|true|1|Julie E. Czerneda
+4|Ties of Power|1|1999|true|2|Lian Hearn
+4|Ties of Power|1|1999|true|3|Tanith Lee
+4|Ties of Power|1|1999|true|4|Connie Willis
+4|Ties of Power|1|1999|true|5|Brandon Sanderson
+5|Elantris|5|2005|true|1|Julie E. Czerneda
+5|Elantris|5|2005|true|2|Lian Hearn
+5|Elantris|5|2005|true|3|Tanith Lee
+5|Elantris|5|2005|true|4|Connie Willis
+5|Elantris|5|2005|true|5|Brandon Sanderson
+6|To Say Nothing of the Dog|4|1998|true|1|Julie E. Czerneda
+6|To Say Nothing of the Dog|4|1998|true|2|Lian Hearn
+6|To Say Nothing of the Dog|4|1998|true|3|Tanith Lee
+6|To Say Nothing of the Dog|4|1998|true|4|Connie Willis
+6|To Say Nothing of the Dog|4|1998|true|5|Brandon Sanderson
+7|Oathbringer|5|2017|false|1|Julie E. Czerneda
+7|Oathbringer|5|2017|false|2|Lian Hearn
+7|Oathbringer|5|2017|false|3|Tanith Lee
+7|Oathbringer|5|2017|false|4|Connie Willis
+7|Oathbringer|5|2017|false|5|Brandon Sanderson
+
+
+
+4. Display a narrower selection of columns (fewer columns than all of them, in other words) from both tables using one query.
+- SELECT books.title, authors.name, books.year_of_pub FROM books JOIN authors ON books.author_id = authors.id;
+- Output:
+A Thousand Words for Stranger|Julie E. Czerneda|1997
+The Birthgrave|Tanith Lee|1975
+Emperor of the Eight Islands: The Tale of Shikanoko|Lian Hearn|2016
+Ties of Power|Julie E. Czerneda|1999
+Elantris|Brandon Sanderson|2005
+To Say Nothing of the Dog|Connie Willis|1998
+Oathbringer|Brandon Sanderson|2017
+
+
+5. Delete an item that meets some condition (you can choose a condition that makes sense).
+- DELETE FROM books WHERE year_of_pub > 2016;
+- SELECT * FROM books;
+- Output:
+1|A Thousand Words for Stranger|1|1997|true
+2|The Birthgrave|3|1975|true
+3|Emperor of the Eight Islands: The Tale of Shikanoko|2|2016|false
+4|Ties of Power|1|1999|true
+5|Elantris|5|2005|true
+6|To Say Nothing of the Dog|4|1998|true
+
+6. JOIN arguments
+- SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id WHERE finished_reading = "true";
+- Output:
+A Thousand Words for Stranger|Julie E. Czerneda
+The Birthgrave|Tanith Lee
+Ties of Power|Julie E. Czerneda
+Elantris|Brandon Sanderson
+To Say Nothing of the Dog|Connie Willis
+
+- SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id WHERE finished_reading = "false";
+- Output:
+Emperor of the Eight Islands: The Tale of Shikanoko|Lian Hearn
+
+- SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id WHERE authors.name = "Julie E. Czerneda";
+- Output:
+A Thousand Words for Stranger|Julie E. Czerneda
+Ties of Power|Julie E. Czerneda
