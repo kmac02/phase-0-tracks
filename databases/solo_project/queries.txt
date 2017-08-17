@@ -94,3 +94,21 @@ Oathbringer|Brandon Sanderson|2017
 4|Ties of Power|1|1999|true
 5|Elantris|5|2005|true
 6|To Say Nothing of the Dog|4|1998|true
+
+6. JOIN arguments
+- SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id WHERE finished_reading = "true";
+- Output:
+A Thousand Words for Stranger|Julie E. Czerneda
+The Birthgrave|Tanith Lee
+Ties of Power|Julie E. Czerneda
+Elantris|Brandon Sanderson
+To Say Nothing of the Dog|Connie Willis
+
+- SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id WHERE finished_reading = "false";
+- Output:
+Emperor of the Eight Islands: The Tale of Shikanoko|Lian Hearn
+
+- SELECT books.title, authors.name FROM books JOIN authors ON books.author_id = authors.id WHERE authors.name = "Julie E. Czerneda";
+- Output:
+A Thousand Words for Stranger|Julie E. Czerneda
+Ties of Power|Julie E. Czerneda
