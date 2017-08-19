@@ -146,12 +146,25 @@ def search_method(db)
     puts "Enter title:"
     by_title = gets.chomp
     results = db.execute("SELECT * FROM items WHERE title LIKE ?", [by_title])
+  elsif search_by == "creator"
+    puts "Enter Creator:"
+    by_creator = gets.chomp
+    results = db.execute("SELECT * FROM items WHERE creator LIKE ?", [by_creator])
+  elsif search_by == "year"
+    puts "Enter year:"
+    by_year = gets.chomp.to_i
+    results = db.execute("SELECT * FROM items WHERE year_released = ?", [by_year.to_i])
+  elsif search_by == "ownership"
+    results = db.execute("SELECT * FROM items WHERE does_own = ?", ["true"])
+  end #if end
+    puts "
+Search Results: "
     results.each do |result|
-      puts "#{result['title']} by #{result['creator']} is id number #{result['id']}"
-    end
-    #puts "#{results['title']} by #{results['creator']}."
-  end
-end
+      puts "#{result['title']} by #{result['creator']} is id number #{result['id']}. Owned by you? #{result['does_own']}"
+    end #iteration end
+
+
+end #method end
 
 # add to insert info method: does item already exist?
 
