@@ -43,6 +43,10 @@ db.execute(create_creators_tbl_cmd)
 db.execute(create_media_tbl_cmd)
 
 # method to add all info to Catalog table
+def add_new_item(db, title, creator_id, media_type_id, year_released, does_own, description, review)
+  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [title, creator_id, media_type_id, year_released, does_own, description, review])
+end
+
 # # ask media type (choose from list?)
 # # method to add book
 # # method to add music
@@ -52,3 +56,6 @@ db.execute(create_media_tbl_cmd)
 # add to insert info method: does item already exist?
 
 # add search method? User interface in separate .rb file?: Search, Add, Update, Delete
+
+### DRIVER CODE FOR TESTING
+add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
