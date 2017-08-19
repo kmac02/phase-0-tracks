@@ -48,26 +48,54 @@ db.execute(<<-ADDONCE
   SELECT * FROM media;
   IF NOT EXISTS
   (INSERT INTO media (type, format)
-    VALUES ('book', 'physical'), ('book', 'ebook'), ('music', 'vinyl'), ('music', 'CD'), ('music', 'mp3'), ('movie', 'Blu-Ray'), ('movie', 'DVD'), ('movie', 'streaming')
+    VALUES
+    ('book', 'physical'), ('book', 'ebook'), ('music', 'vinyl'), ('music', 'CD'), ('music', 'mp3'), ('movie', 'Blu-Ray'), ('movie', 'DVD'), ('movie', 'streaming')
     )
   ADDONCE
 )
 
 # method to add all info to item table
-def add_new_item(db, title, creator_id, media_type_id, year_released, does_own, description, review)
-  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [title, creator_id, media_type_id, year_released, does_own, description, review])
+def add_new_item(db, title, creator_id, year_released, does_own, description, review)
+  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [title, creator_id, @media_type_id, year_released, does_own, description, review])
 end
 
-#method to select
+#method to select media type
 def media_select
-
+  puts "What type of media would you like to add? Select number.
+  1. Book, physical
+  2. Book, ebook
+  3. Music, vinyl
+  4. Music, CD
+  5. Music, mp3
+  6. Movie, Blu-Ray
+  7. Movie, DVD
+  8. Movie, streaming"
+  media_option = gets.chomp.to_i
+  @media_type_id = media_option
+    # if media_option == 1
+    #   @media_type_id = 1
+    # elsif media_option == 2
+    #   @media_type_id = 2
+    # elsif media_option == 3
+    #   @media_type_id = 3
+    # elsif media_option == 4
+    #   @media_type_id = 4
+    # elsif media_option == 5
+    #   @media_type_id = 5
+    # elsif media_option == 6
+    #   @media_type_id = 6
+    # elsif media_option == 7
+    #   @media_type_id = 7
+    # elsif media_option == 8
+    #   @media_type_id = 8
+    # else
+    #   puts "Please select a number. "
+    # end
 end
 
+# method add title
 
-# # ask media type (choose from list?)
-# # method to add book
-# # method to add music
-# # method to add movie
+
 
 
 # add to insert info method: does item already exist?
@@ -76,3 +104,8 @@ end
 
 ### DRIVER CODE FOR TESTING
 #add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
+
+##### USER INTERFACE
+# What would you like to do? (Add, Update, Search, Delete)
+## ADD
+media_select
