@@ -42,10 +42,27 @@ db.execute(create_table_cmd)
 db.execute(create_creators_tbl_cmd)
 db.execute(create_media_tbl_cmd)
 
-# method to add all info to Catalog table
+# if the media table does not include anything, execute this code to create a static table for media types
+
+db.execute(<<-ADDONCE
+  SELECT * FROM media;
+  IF NOT EXISTS
+  (INSERT INTO media (type, format)
+    VALUES ('book', 'physical'), ('book', 'ebook'), ('music', 'vinyl'), ('music', 'CD'), ('music', 'mp3'), ('movie', 'Blu-Ray'), ('movie', 'DVD'), ('movie', 'streaming')
+    )
+  ADDONCE
+)
+
+# method to add all info to item table
 def add_new_item(db, title, creator_id, media_type_id, year_released, does_own, description, review)
   db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [title, creator_id, media_type_id, year_released, does_own, description, review])
 end
+
+#method to select
+def media_select
+
+end
+
 
 # # ask media type (choose from list?)
 # # method to add book
@@ -58,4 +75,4 @@ end
 # add search method? User interface in separate .rb file?: Search, Add, Update, Delete
 
 ### DRIVER CODE FOR TESTING
-add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
+#add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
