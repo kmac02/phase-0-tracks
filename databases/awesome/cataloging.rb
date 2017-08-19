@@ -139,6 +139,20 @@ def add_new_item(db)
   db.execute("INSERT INTO items (title, creator, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, @creator, @media_type_id, @year_released, @does_own, @description, @review])
 end
 
+def search_method(db)
+  puts "How would you like to search? (title, creator, year, ownership)"
+  search_by = gets.chomp.downcase
+  if search_by == "title"
+    puts "Enter title:"
+    by_title = gets.chomp
+    results = db.execute("SELECT * FROM items WHERE title LIKE ?", [by_title])
+    results.each do |result|
+      puts "#{result['title']} by #{result['creator']} is id number #{result['id']}"
+    end
+    #puts "#{results['title']} by #{results['creator']}."
+  end
+end
+
 # add to insert info method: does item already exist?
 
 # add search method? User interface in separate .rb file?: Search, Add, Update, Delete
@@ -147,9 +161,16 @@ end
 #add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
 
 ##### USER INTERFACE
-# What would you like to do? (Add, Update, Search, Delete)
+puts "Welcome! What would you like to do? (Add, Update, Search, Delete)"
+selection = gets.chomp.downcase
+if selection == "add"
 ## ADD
-add_new_item(db)
+  add_new_item(db)
+elsif selection == "search"
+  search_method(db)
+
+end
+
 
 ### HOLDING BIN
  # if media_option == 1
