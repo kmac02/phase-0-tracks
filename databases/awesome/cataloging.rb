@@ -12,17 +12,17 @@ create_table_cmd = <<-SQL
   CREATE TABLE IF NOT EXISTS items(
     id INTEGER PRIMARY KEY,
     title VARCHAR(255),
-    creator_id INTEGER,
+    creator VARCHAR(255),
     media_type_id INTEGER,
     year_released INTEGER,
     does_own BOOLEAN,
-    description TEXT,
-    review TEXT,
-    FOREIGN KEY (creator_id) REFERENCES creators(id),
+    description VARCHAR(255),
+    review VARCHAR(255),
+
     FOREIGN KEY (media_type_id) REFERENCES media(id)
   )
 SQL
-
+# old: FOREIGN KEY (creator_id) REFERENCES creators(id),
 create_creators_tbl_cmd = <<-SQL
   CREATE TABLE IF NOT EXISTS creators(
     id INTEGER PRIMARY KEY,
@@ -56,9 +56,9 @@ db.execute(<<-ADDONCE
 #*********************************************
 
 # method to add all info to item table
-def add_new_item(db)
-  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, creator_id, @media_type_id, @year_released, @does_own, @description, @review])
-end
+# def add_new_item(db)
+#   db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, creator_id, @media_type_id, @year_released, @does_own, @description, @review])
+# end
 
 #method to select media type (assumes correct input)
 def media_select
@@ -98,20 +98,22 @@ end
 
  def insert_creator(db)
   add_creator
-  db.execute("INSERT INTO creators (name) VALUES (?)", [@creator])
-  @creator_id = db.execute("SELECT id FROM creators WHERE name = ?", [@creator])
+  # db.execute("INSERT INTO creators (name) VALUES (?)", [@creator])
+  # @creator_id = db.execute("SELECT id FROM creators WHERE name = ?", [@creator])
 end
 
 def add_year
   puts "What year was the title released?"
-  @year_released = gets.chomp
+  @year_released = gets.chomp.to_i
 end
 
 def add_ownership
   puts "Do you own this title? yes or no."
   answer = gets.chomp
   if answer == "yes"
-    @does_own = true
+    @does_own = "true"
+  else
+    @does_own = "false"
   end
 end
 
@@ -129,12 +131,12 @@ end
 def add_new_item(db)
   media_select
   add_title
-  insert_creator(db)
+  add_creator
   add_year
   add_ownership
   add_description
   add_review
-  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, @creator_id, @media_type_id, @year_released, @does_own, @description, @review])
+  db.execute("INSERT INTO items (title, creator, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, @creator, @media_type_id, @year_released, @does_own, @description, @review])
 end
 
 # add to insert info method: does item already exist?
