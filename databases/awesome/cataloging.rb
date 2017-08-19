@@ -53,13 +53,14 @@ db.execute(<<-ADDONCE
     )
   ADDONCE
 )
+#*********************************************
 
 # method to add all info to item table
-def add_new_item(db, title, creator_id, year_released, does_own, description, review)
-  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [title, creator_id, @media_type_id, year_released, does_own, description, review])
+def add_new_item(db)
+  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, creator_id, @media_type_id, @year_released, @does_own, @description, @review])
 end
 
-#method to select media type
+#method to select media type (assumes correct input)
 def media_select
   puts "What type of media would you like to add? Select number.
   1. Book, physical
@@ -70,9 +71,86 @@ def media_select
   6. Movie, Blu-Ray
   7. Movie, DVD
   8. Movie, streaming"
-  media_option = gets.chomp.to_i
-  @media_type_id = media_option
-    # if media_option == 1
+  selection = gets.chomp.to_i
+  @media_type_id = selection
+end
+
+# method add title
+def add_title
+  puts "Title:"
+  @title = gets.chomp
+end
+
+# method to add creator (adds to creator list, and the id from the creator table is added to the item table)
+def add_creator
+  if @media_type_id == 1 || @media_type_id == 2
+    puts "Author:"
+    @creator = gets.chomp
+  elsif @media_type_id == 3 || @media_type_id == 4 || @media_type_id == 5
+    puts "Artist:"
+    @creator = gets.chomp
+  elsif @media_type_id == 6 || @media_type_id == 7 || @media_type_id == 8
+    puts "Director:"
+    @creator = gets.chomp
+  end
+
+end
+
+ def insert_creator(db)
+  add_creator
+  db.execute("INSERT INTO creators (name) VALUES (?)", [@creator])
+  @creator_id = db.execute("SELECT id FROM creators WHERE name = ?", [@creator])
+end
+
+def add_year
+  puts "What year was the title released?"
+  @year_released = gets.chomp
+end
+
+def add_ownership
+  puts "Do you own this title? yes or no."
+  answer = gets.chomp
+  if answer == "yes"
+    @does_own = true
+  end
+end
+
+def add_description
+  puts "Description:"
+  @description = gets.chomp
+end
+
+def add_review
+  puts "Review:"
+  @review = gets.chomp
+end
+
+# method to add all info to item table
+def add_new_item(db)
+  media_select
+  add_title
+  insert_creator(db)
+  add_year
+  add_ownership
+  add_description
+  add_review
+  db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, @creator_id, @media_type_id, @year_released, @does_own, @description, @review])
+end
+
+# add to insert info method: does item already exist?
+
+# add search method? User interface in separate .rb file?: Search, Add, Update, Delete
+
+### DRIVER CODE FOR TESTING
+#add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
+
+##### USER INTERFACE
+# What would you like to do? (Add, Update, Search, Delete)
+## ADD
+add_new_item(db)
+
+### HOLDING BIN
+ # if media_option == 1
     #   @media_type_id = 1
     # elsif media_option == 2
     #   @media_type_id = 2
@@ -91,21 +169,3 @@ def media_select
     # else
     #   puts "Please select a number. "
     # end
-end
-
-# method add title
-
-
-
-
-# add to insert info method: does item already exist?
-
-# add search method? User interface in separate .rb file?: Search, Add, Update, Delete
-
-### DRIVER CODE FOR TESTING
-#add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
-
-##### USER INTERFACE
-# What would you like to do? (Add, Update, Search, Delete)
-## ADD
-media_select
