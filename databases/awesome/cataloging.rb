@@ -137,8 +137,10 @@ def add_new_item(db)
   add_description
   add_review
   db.execute("INSERT INTO items (title, creator, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, @creator, @media_type_id, @year_released, @does_own, @description, @review])
+  # add summary of added content
 end
 
+# Search by method for title, creator, year and what items are owned
 def search_method(db)
   puts "How would you like to search? (title, creator, year, ownership)"
   search_by = gets.chomp.downcase
@@ -162,16 +164,37 @@ Search Results: "
     results.each do |result|
       puts "#{result['title']} by #{result['creator']} is id number #{result['id']}. Owned by you? #{result['does_own']}"
     end #iteration end
+end #search method end
+
+def print_full_list(db)
+  full_list = db.execute("SELECT * FROM items")
+      puts "Results:"
+      full_list.each do |item|
+        #media_format = db.execute("SELECT media.id FROM media JOIN items ON media.id = items.media_type_id")
+        result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']} Description: #{item['description']}. Review: #{item['review']}."
+        puts result
+      end
+end
+
+def update_method(db)
+    puts "Select which ID you would like to update. To view the full list, type 'list'."
+    id = gets.chomp
+    if id == "list"
+      print_full_list(db)
 
 
-end #method end
+    end # if end
+
+end #update end
+# + db.execute("SELECT * FROM media WHERE id = items.media_type_id") +
+#JOIN media ON items.media_type_id = media.id"
 
 # add to insert info method: does item already exist?
 
 # add search method? User interface in separate .rb file?: Search, Add, Update, Delete
 
 ### DRIVER CODE FOR TESTING
-#add_new_item(db, "Ties of Power", 1, 1, 1999, "true", "Sequel to A Thousand Words for Stranger", "still reading")
+
 
 ##### USER INTERFACE
 puts "Welcome! What would you like to do? (Add, Update, Search, Delete)"
@@ -181,27 +204,9 @@ if selection == "add"
   add_new_item(db)
 elsif selection == "search"
   search_method(db)
-
+elsif selection == "update"
+  update_method(db)
 end
 
 
 ### HOLDING BIN
- # if media_option == 1
-    #   @media_type_id = 1
-    # elsif media_option == 2
-    #   @media_type_id = 2
-    # elsif media_option == 3
-    #   @media_type_id = 3
-    # elsif media_option == 4
-    #   @media_type_id = 4
-    # elsif media_option == 5
-    #   @media_type_id = 5
-    # elsif media_option == 6
-    #   @media_type_id = 6
-    # elsif media_option == 7
-    #   @media_type_id = 7
-    # elsif media_option == 8
-    #   @media_type_id = 8
-    # else
-    #   puts "Please select a number. "
-    # end
