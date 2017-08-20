@@ -137,7 +137,15 @@ def add_new_item(db)
   add_description
   add_review
   db.execute("INSERT INTO items (title, creator, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, @creator, @media_type_id, @year_released, @does_own, @description, @review])
-  # add summary of added content
+  puts "*" * 50
+  puts "You added:
+  TITLE: #{@title}
+  CREATOR: #{@creator}
+  MEDIA TYPE NUMBER: #{@media_type_id}
+  YEAR: #{@year_released}
+  YOU OWN THIS TITLE: #{@does_own}
+  DESCRIPTION: #{@description}
+  REVIEW: #{@review}"
 end
 
 # Search by method for title, creator, year and what items are owned
@@ -171,7 +179,7 @@ def print_full_list(db)
       puts "Results:"
       full_list.each do |item|
         #media_format = db.execute("SELECT media.id FROM media JOIN items ON media.id = items.media_type_id")
-        result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']} Description: #{item['description']}. Review: #{item['review']}."
+        result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']}, Description: #{item['description']}, Review: #{item['review']}"
         puts result
       end
 end
@@ -228,6 +236,31 @@ def update_method(db)
       end
     end # if end
 end #update end
+
+def delete_method(db)
+  puts "Select which catalog number you would like to delete. To view the full list, type 'list'."
+    @select_id = gets.chomp
+    if @select_id == "list"
+      print_full_list(db)
+    end
+    puts "Select catalog number:"
+    @select_id = gets.chomp
+    if @select_id.to_i.is_a? Integer
+      display_item(db)
+      puts "Are you sure you want to delete #{@select_id}? Type 'yes' to confirm or 'no' to cancel."
+      confirm = gets.chomp
+      # while confirm != "yes" || confirm != "no"
+      #   puts "Please type 'yes' to confirm or 'no' to cancel"
+      #   confirm = gets.chomp
+      # end #until end
+      if confirm == "yes"
+        db.execute("DELETE FROM items WHERE id = ?", [@select_id])
+      puts "The content for catalog number #{@select_id} has been deleted."
+      end
+    end # if select id end
+end
+
+
 # + db.execute("SELECT * FROM media WHERE id = items.media_type_id") +
 #JOIN media ON items.media_type_id = media.id"
 
@@ -239,14 +272,31 @@ end #update end
 
 
 ##### USER INTERFACE
-puts "Welcome! What would you like to do? (Add, Update, Search, Delete)"
-selection = gets.chomp.downcase
-if selection == "add"
-  add_new_item(db)
-elsif selection == "search"
-  search_method(db)
-elsif selection == "update"
-  update_method(db)
+puts "\nWelcome to your media catalog!\nWhat would you like to do?\n"
+selection = ''
+until selection == "exit" || selection == "6"
+puts "\n**********************\nOptions:
+1. Add
+2. Update
+3. Search
+4. Delete
+5. View Catalog List
+6. Exit
+**********************"
+  puts "Select:"
+  selection = gets.chomp.downcase
+  if selection == "add" || selection == "1"
+    add_new_item(db)
+  elsif selection == "search" || selection == "2"
+    search_method(db)
+  elsif selection == "update" || selection == "3"
+    update_method(db)
+  elsif selection == "delete" || selection == "4"
+    delete_method(db)
+  elsif selection == "view catalog list" || selection == "5"
+    print_full_list(db)
+  end
+
 end
 
 
