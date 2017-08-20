@@ -150,7 +150,7 @@ end
 
 # Search by method for title, creator, year and what items are owned
 def search_method(db)
-  puts "How would you like to search? (title, creator, year, ownership)"
+  puts "How would you like to search?\n1. Title\n2. Creator (includes: author, director, music artist)\n3. Year\n4. Display all items you own\n" # 5. Description
   search_by = gets.chomp.downcase
   if search_by == "title"
     puts "Enter title:"
@@ -164,11 +164,14 @@ def search_method(db)
     puts "Enter year:"
     by_year = gets.chomp.to_i
     results = db.execute("SELECT * FROM items WHERE year_released = ?", [by_year.to_i])
-  elsif search_by == "ownership"
+  elsif search_by == "ownership" || search_by == "4"
     results = db.execute("SELECT * FROM items WHERE does_own = ?", ["true"])
+  # elsif search_by == "description" || search_by == "5"
+  #   puts "Search for:"
+  #   search_term = gets.chomp
+  #   p results = db.execute("SELECT * FROM items WHERE description LIKE ?", "%[#{search_term}]%")
   end #if end
-    puts "
-Search Results: "
+    puts "Search Results: "
     results.each do |result|
       puts "#{result['title']} by #{result['creator']} is id number #{result['id']}. Owned by you? #{result['does_own']}"
     end #iteration end
@@ -179,7 +182,7 @@ def print_full_list(db)
       puts "Results:"
       full_list.each do |item|
         #media_format = db.execute("SELECT media.id FROM media JOIN items ON media.id = items.media_type_id")
-        result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']}, Description: #{item['description']}, Review: #{item['review']}"
+        result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']}, Owned by you? #{item['does_own']}, Description: #{item['description']}, Review: #{item['review']}"
         puts result
       end
 end
@@ -188,7 +191,7 @@ end
 def display_item(db)
   @to_edit = db.execute("SELECT * FROM items WHERE ID = ?", [@select_id])
         @to_edit.each do |item|
-          puts "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']} Description: #{item['description']}. Review: #{item['review']}."
+          puts "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']}, Owned by you? #{item['does_own']}, Description: #{item['description']}. Review: #{item['review']}."
         end
 end
 
@@ -205,7 +208,8 @@ def update_method(db)
       2. Creator
       3. Year
       4. Description
-      5. Review"
+      5. Review
+      6. Own it?"
       select_edit = gets.chomp.downcase
       puts "Change to:"
       if select_edit == "title" || select_edit == "1"
@@ -231,6 +235,17 @@ def update_method(db)
       elsif select_edit == "review" || select_edit == "5"
         new_review = gets.chomp
         db.execute("UPDATE items SET review = ? WHERE id = ?", [new_review, @select_id])
+        puts "Updated:"
+        display_item(db)
+      elsif select_edit == "own it?" || select_edit == "6"
+        puts "Do you own this title? Type 'yes' or 'no'"
+        answer = gets.chomp
+        if answer = "yes"
+          answer = "true"
+        elsif answer = "no"
+          answer = "false"
+        end
+        db.execute("UPDATE items SET does_own = ? WHERE id = ?", [answer, @select_id])
         puts "Updated:"
         display_item(db)
       end
@@ -277,8 +292,8 @@ selection = ''
 until selection == "exit" || selection == "6"
 puts "\n**********************\nOptions:
 1. Add
-2. Update
-3. Search
+2. Search
+3. Update
 4. Delete
 5. View Catalog List
 6. Exit
