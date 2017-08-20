@@ -176,15 +176,57 @@ def print_full_list(db)
       end
 end
 
+# method to display item by ID number within other methods
+def display_item(db)
+  @to_edit = db.execute("SELECT * FROM items WHERE ID = ?", [@select_id])
+        @to_edit.each do |item|
+          puts "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']} Description: #{item['description']}. Review: #{item['review']}."
+        end
+end
+
 def update_method(db)
     puts "Select which ID you would like to update. To view the full list, type 'list'."
-    id = gets.chomp
-    if id == "list"
+    @select_id = gets.chomp
+    if @select_id == "list"
       print_full_list(db)
-
-
+    elsif @select_id.to_i.is_a? Integer
+      puts "Selection:"
+      display_item(db)
+      puts "What would you like to edit?
+      1. Title
+      2. Creator
+      3. Year
+      4. Description
+      5. Review"
+      select_edit = gets.chomp.downcase
+      puts "Change to:"
+      if select_edit == "title" || select_edit == "1"
+        new_title = gets.chomp
+        db.execute("UPDATE items SET title = ? WHERE id = ?", [new_title, @select_id])
+        puts "Updated:"
+        display_item(db)
+      elsif select_edit == "creator" || select_edit == "2"
+        new_creator = gets.chomp
+        db.execute("UPDATE items SET creator = ? WHERE id = ?", [new_creator, @select_id])
+        puts "Updated:"
+        display_item(db)
+      elsif select_edit == "year" || select_edit == "3"
+        new_year = gets.chomp.to_i
+        db.execute("UPDATE items SET year_released = ? WHERE id = ?", [new_year, @select_id])
+        puts "Updated:"
+        display_item(db)
+      elsif select_edit == "description" || select_edit == "4"
+        new_description = gets.chomp
+        db.execute("UPDATE items SET description = ? WHERE id = ?", [new_description, @select_id])
+        puts "Updated:"
+        display_item(db)
+      elsif select_edit == "review" || select_edit == "5"
+        new_review = gets.chomp
+        db.execute("UPDATE items SET review = ? WHERE id = ?", [new_review, @select_id])
+        puts "Updated:"
+        display_item(db)
+      end
     end # if end
-
 end #update end
 # + db.execute("SELECT * FROM media WHERE id = items.media_type_id") +
 #JOIN media ON items.media_type_id = media.id"
@@ -200,7 +242,6 @@ end #update end
 puts "Welcome! What would you like to do? (Add, Update, Search, Delete)"
 selection = gets.chomp.downcase
 if selection == "add"
-## ADD
   add_new_item(db)
 elsif selection == "search"
   search_method(db)
