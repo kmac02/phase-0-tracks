@@ -197,11 +197,15 @@ def display_item(db)
 end
 
 def update_method(db)
-    puts "Select which ID you would like to update. To view the full list, type 'list'."
+    puts "Select which catalog number you would like to update. To view the full list, type 'list'."
     @select_id = gets.chomp
     if @select_id == "list"
       print_full_list(db)
-    elsif @select_id.to_i.is_a? Integer
+      puts "Select catalog number:"
+      @select_id = gets.chomp
+      puts
+    end
+    if @select_id.to_i.is_a? Integer
       puts "Selection:"
       display_item(db)
       puts "What would you like to edit?
@@ -216,28 +220,18 @@ def update_method(db)
       if select_edit == "title" || select_edit == "1"
         new_title = gets.chomp
         db.execute("UPDATE items SET title = ? WHERE id = ?", [new_title, @select_id])
-        puts "Updated:"
-        display_item(db)
       elsif select_edit == "creator" || select_edit == "2"
         new_creator = gets.chomp
         db.execute("UPDATE items SET creator = ? WHERE id = ?", [new_creator, @select_id])
-        puts "Updated:"
-        display_item(db)
       elsif select_edit == "year" || select_edit == "3"
         new_year = gets.chomp.to_i
         db.execute("UPDATE items SET year_released = ? WHERE id = ?", [new_year, @select_id])
-        puts "Updated:"
-        display_item(db)
       elsif select_edit == "description" || select_edit == "4"
         new_description = gets.chomp
         db.execute("UPDATE items SET description = ? WHERE id = ?", [new_description, @select_id])
-        puts "Updated:"
-        display_item(db)
       elsif select_edit == "review" || select_edit == "5"
         new_review = gets.chomp
         db.execute("UPDATE items SET review = ? WHERE id = ?", [new_review, @select_id])
-        puts "Updated:"
-        display_item(db)
       elsif select_edit == "own it?" || select_edit == "6"
         puts "Do you own this title? Type 'yes' or 'no'"
         answer = gets.chomp
@@ -247,9 +241,10 @@ def update_method(db)
           answer = "false"
         end
         db.execute("UPDATE items SET does_own = ? WHERE id = ?", [answer, @select_id])
-        puts "Updated:"
-        display_item(db)
       end
+    puts # empty line
+    puts "Updated:"
+    display_item(db)
     end # if end
 end #update end
 
@@ -265,10 +260,6 @@ def delete_method(db)
       display_item(db)
       puts "Are you sure you want to delete #{@select_id}? Type 'yes' to confirm or 'no' to cancel."
       confirm = gets.chomp
-      # while confirm != "yes" || confirm != "no"
-      #   puts "Please type 'yes' to confirm or 'no' to cancel"
-      #   confirm = gets.chomp
-      # end #until end
       if confirm == "yes"
         db.execute("DELETE FROM items WHERE id = ?", [@select_id])
       puts "The content for catalog number #{@select_id} has been deleted."
@@ -281,7 +272,7 @@ def view_catalog_options(db)
   view_by = gets.chomp
   if view_by == "1"
     print_full_list(db)
-    output = false
+    output = false # method displays by cat #
   elsif view_by == "2"
     output = db.execute("SELECT * FROM items ORDER BY title ASC")
   elsif view_by == "3"
@@ -302,42 +293,24 @@ def view_catalog_options(db)
 end
 
 
-# + db.execute("SELECT * FROM media WHERE id = items.media_type_id") +
-#JOIN media ON items.media_type_id = media.id"
-
-# add to insert info method: does item already exist?
-
-# add search method? User interface in separate .rb file?: Search, Add, Update, Delete
-
-### DRIVER CODE FOR TESTING
-
-
 ##### USER INTERFACE
 puts "\nWelcome to your media catalog!\nWhat would you like to do?\n"
 selection = ''
 until selection == "exit" || selection == "6"
-puts "\n**********************\nOptions:
-1. Add
-2. Search
-3. Update
-4. Delete
-5. View Catalog List
-6. Exit
-**********************"
-  puts "Select:"
-  selection = gets.chomp.downcase
-  if selection == "add" || selection == "1"
-    add_new_item(db)
-  elsif selection == "search" || selection == "2"
-    search_method(db)
-  elsif selection == "update" || selection == "3"
-    update_method(db)
-  elsif selection == "delete" || selection == "4"
-    delete_method(db)
-  elsif selection == "view catalog list" || selection == "5"
-    view_catalog_options(db)   ## view by alpha by title, creator or by year descending
-  end
-
+  puts "\n**********************\nOptions:\n1. Add\n2. Search\n3. Update\n4. Delete\n5. View Catalog List\n6. Exit\n**********************"
+    puts "Select:"
+    selection = gets.chomp.downcase
+    if selection == "add" || selection == "1"
+      add_new_item(db)
+    elsif selection == "search" || selection == "2"
+      search_method(db)
+    elsif selection == "update" || selection == "3"
+      update_method(db)
+    elsif selection == "delete" || selection == "4"
+      delete_method(db)
+    elsif selection == "view catalog list" || selection == "5"
+      view_catalog_options(db)
+    end
 end
 
 
