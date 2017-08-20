@@ -152,15 +152,15 @@ end
 def search_method(db)
   puts "How would you like to search?\n1. Title\n2. Creator (includes: author, director, music artist)\n3. Year\n4. Display all items you own\n" # 5. Description
   search_by = gets.chomp.downcase
-  if search_by == "title"
+  if search_by == "title" || search_by == "1"
     puts "Enter title:"
     by_title = gets.chomp
     results = db.execute("SELECT * FROM items WHERE title LIKE ?", [by_title])
-  elsif search_by == "creator"
+  elsif search_by == "creator" || search_by == "2"
     puts "Enter Creator:"
     by_creator = gets.chomp
     results = db.execute("SELECT * FROM items WHERE creator LIKE ?", [by_creator])
-  elsif search_by == "year"
+  elsif search_by == "year" || search_by == "3"
     puts "Enter year:"
     by_year = gets.chomp.to_i
     results = db.execute("SELECT * FROM items WHERE year_released = ?", [by_year.to_i])
@@ -184,6 +184,7 @@ def print_full_list(db)
         #media_format = db.execute("SELECT media.id FROM media JOIN items ON media.id = items.media_type_id")
         result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']}, Owned by you? #{item['does_own']}, Description: #{item['description']}, Review: #{item['review']}"
         puts result
+        puts #empty line
       end
 end
 
@@ -240,9 +241,9 @@ def update_method(db)
       elsif select_edit == "own it?" || select_edit == "6"
         puts "Do you own this title? Type 'yes' or 'no'"
         answer = gets.chomp
-        if answer = "yes"
+        if answer == "yes"
           answer = "true"
-        elsif answer = "no"
+        elsif answer == "no"
           answer = "false"
         end
         db.execute("UPDATE items SET does_own = ? WHERE id = ?", [answer, @select_id])
@@ -273,6 +274,31 @@ def delete_method(db)
       puts "The content for catalog number #{@select_id} has been deleted."
       end
     end # if select id end
+end
+
+def view_catalog_options(db)
+  puts "How would you like to view?\n1. By catalog number (lowest to highest)\n2. Alphabetical by Title (A-Z)\n3. Alphabetical by Creator(by first name)\n4. By Year (Oldest to Newest)"
+  view_by = gets.chomp
+  if view_by == "1"
+    print_full_list(db)
+    output = false
+  elsif view_by == "2"
+    output = db.execute("SELECT * FROM items ORDER BY title ASC")
+  elsif view_by == "3"
+    output = db.execute("SELECT * FROM items ORDER BY creator ASC")
+  elsif view_by == "4"
+    output = db.execute("SELECT * FROM items ORDER BY year_released ASC")
+  end
+  puts
+  if output
+    puts "Results:"
+    output.each do |item|
+      result =  "#{item['id']}: #{item['title']} by #{item['creator']}, released in #{item['year_released']}. Media ID: #{item['media_type_id']}, Owned by you? #{item['does_own']}, Description: #{item['description']}, Review: #{item['review']}"
+      puts result
+      puts #empty line
+    end
+  end # output do end
+
 end
 
 
@@ -309,7 +335,7 @@ puts "\n**********************\nOptions:
   elsif selection == "delete" || selection == "4"
     delete_method(db)
   elsif selection == "view catalog list" || selection == "5"
-    print_full_list(db)
+    view_catalog_options(db)   ## view by alpha by title, creator or by year descending
   end
 
 end
