@@ -18,7 +18,6 @@ create_table_cmd = <<-SQL
     does_own BOOLEAN,
     description VARCHAR(255),
     review VARCHAR(255),
-
     FOREIGN KEY (media_type_id) REFERENCES media(id)
   )
 SQL
@@ -43,7 +42,6 @@ db.execute(create_creators_tbl_cmd)
 db.execute(create_media_tbl_cmd)
 
 # if the media table does not include anything, execute this code to create a static table for media types
-
 db.execute(<<-ADDONCE
   SELECT * FROM media;
   IF NOT EXISTS
@@ -54,11 +52,6 @@ db.execute(<<-ADDONCE
   ADDONCE
 )
 #*********************************************
-
-# method to add all info to item table
-# def add_new_item(db)
-#   db.execute("INSERT INTO items (title, creator_id, media_type_id, year_released, does_own, description, review) VALUES (?, ?, ?, ?, ?, ?, ?)", [@title, creator_id, @media_type_id, @year_released, @does_own, @description, @review])
-# end
 
 #method to select media type (assumes correct input)
 def media_select
