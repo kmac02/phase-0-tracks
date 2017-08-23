@@ -1,0 +1,17 @@
+/*body {
+  color: black;
+}*/
+
+div#snow {
+
+  float: left;
+  width: 50%;
+}
+
+section {
+  float: right;
+  width: 50%;
+  display: none;
+
+}
+
