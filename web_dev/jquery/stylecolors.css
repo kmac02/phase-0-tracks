@@ -2,10 +2,16 @@
   color: black;
 }*/
 
-div {
-  text-align: center;
-}
+div#snow {
 
-img {
+  float: left;
   width: 50%;
 }
+
+section {
+  float: right;
+  width: 50%;
+  display: none;
+
+}
+
