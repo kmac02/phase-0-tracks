@@ -87,9 +87,6 @@ end
 #   student.to_s
 # end
 
-
-
-
 # WORKS (borrowed from pair)
 # student = db.execute("SELECT * FROM students WHERE name LIKE '#{params[:letter].upcase}%'")
 
