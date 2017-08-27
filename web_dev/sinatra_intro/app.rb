@@ -71,8 +71,10 @@ db.results_as_hash = true
 # end
 
 # Make a route that allows the user to search the database in some way -- maybe for students who have a certain first name, or some other attribute.
-get '/students/' do
-  student = db.execute("SELECT name FROM students WHERE name LIKE ?", ['K%'])
+
+get '/students/:letter' do
+  letter = params[:letter]
+  student = db.execute("SELECT name FROM students WHERE name LIKE ?", [letter + '%'])
   student.to_s
 end
 
@@ -80,11 +82,13 @@ end
  # students = db.execute("SELECT * FROM students")
 # students.to_s
 
-
-
-#RETURNS AN EMPTY ARRAY TO THE BROWSER
-# get '/students/:letter' do
-#   letter = params[:letter]
-#   student = db.execute("SELECT name FROM students WHERE name LIKE ?", ['[params[:letter]%'])
+# get '/students/' do
+#   student = db.execute("SELECT name FROM students WHERE name LIKE ?", ['K%'])
 #   student.to_s
 # end
+
+# WORKS (borrowed from pair)
+# student = db.execute("SELECT * FROM students WHERE name LIKE '#{params[:letter].upcase}%'")
+
+# DOESN'T WORK
+# student = db.execute("SELECT name FROM students WHERE name LIKE ?", ["'#{params[:letter]}'+'%'"])
